@@ -2,14 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> BIM Management Plan</title>
+    <title>CODE2270 - 2022 BIM Interface</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.1223.0.js"></script>
+<script src="/js/three.js"></script>
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.138.3/build/three.module.js"
+        }
+    }
+</script>
 
-<div>
-    An integrated browser dashboard to communicate the project whilst incorporating the previous assessments
-    analysis, scheduling, and reports.
+<div class="titleBlock">
+  <h1>CODE2270 BIM MANAGEMENT PLAN</h1><br>
+    <h2>KEN Lin</h2>
+    <h3>z5383628</h3>
 </div>
 
+<iframe width= "100%" height="1000px" src="pdf/Workflow Diagram.pdf" ></iframe>
+    <h5>Model</h5>
+
+<div class="canvas">
+    <div id="frame"></div>
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'https://unpkg.com/three@0.138.3/examples/jsm/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'https://unpkg.com/three@0.138.3/examples/jsm/controls/OrbitControls.js';
+
+
+        // Getting dimensions of div ID "frame"
+        let box = document.querySelector('.canvas');
+        let width = box.offsetWidth;
+        let height = box.offsetHeight;
+        const container = document.getElementById('frame');
+
+
+        // Scene setup
+        const scene = new THREE.Scene();
+
+        // const camera = new THREE.PerspectiveCamera( 60, width / height, 1, 10000 );
+        const camera = new THREE.OrthographicCamera( width / - 70, width / 70, height / 70, height / - 80, -150, 150 );
+
+        // Renderer setup and appending to 'frame'
+        const renderer = new THREE.WebGLRenderer( { antialias: true } );
+        renderer.setPixelRatio ( window.devicePixelRatio );
+        renderer.setSize( width, height );
+        container.appendChild( renderer.domElement )
+
+        // Geometry
+        const loader = new GLTFLoader();
+        loader.load('model/romove.gltf', function (gltf) {
+            scene.add(gltf.scene);
+        }, undefined, function ( error ) {
+            console.error( error );
+        });
+
+        //Scene
+        scene.background = new THREE.Color(255, 255, 255)
+        camera.position.set(-1,-8,2);
+        //camera.lookAt(new THREE.Vector3(-10,10,10))
+
+        //Control
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.update();
+
+        function animate() {
+            requestAnimationFrame( animate );
+            controls.update();
+            renderer.render( scene, camera );
+        }
+        animate();
+    </script>
+</div>
 </body>
+
+<div class="title">
+    <h4>Design plans & Clash detection& Costs</h4><br>
+    <iframe width= "100%" height="1000px" src="pdf/Revit_File.pdf" ></iframe>
+
+    <h6>
+        Sequencing
+    </h6><br>
+    <iframe width= "100%" height="300px" src="pdf/s.pdf" ></iframe>
+
+    <h4>
+        Quantity takeoff
+    </h4><br>
+    <iframe width= "100%" height="900px" src="pdf/qt.pdf" ></iframe>
+
+    <h4>Cost</h4><br>
+    <iframe width= "100%" height="500px" src="pdf/cspdf.pdf" ></iframe>
+</div>
+
+
 </html>

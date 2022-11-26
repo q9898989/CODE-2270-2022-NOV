@@ -1,0 +1,7 @@
+{
+  "name": "CODE2270-BIM-MANAGEMENT-PLAN",
+  "version": "1.0.0",
+  "dependencies": {
+    "three": "^0.146.0"
+  }
+}
